@@ -1,0 +1,161 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.960
+Let's get started on using the "sed" commands.
+
+2
+00:00:03.960 --> 00:00:05.700
+To create a new file,
+
+3
+00:00:05.700 --> 00:00:07.835
+test1 at the command prompt, type:
+
+4
+00:00:07.835 --> 00:00:12.975
+"cat > test1", and press Enter.
+
+5
+00:00:12.975 --> 00:00:15.465
+Type the following sentences:
+
+6
+00:00:15.465 --> 00:00:19.440
+"This is a Sample Test File [that is used] for the "sed" command.
+
+7
+00:00:19.440 --> 00:00:24.040
+The sed command is used to edit contents in a file.
+
+8
+00:00:24.040 --> 00:00:30.120
+For example, the sed command is used to replace words in a line or file.",
+
+9
+00:00:30.120 --> 00:00:31.845
+and press the Enter key,
+
+10
+00:00:31.845 --> 00:00:35.270
+and press Ctrl+D to save the file.
+
+11
+00:00:35.270 --> 00:00:37.690
+You will return to the command prompt.
+
+12
+00:00:37.690 --> 00:00:49.540
+To substitute first string occurrence in a line, type: "sed s/is/are/ test1",
+
+13
+00:00:49.840 --> 00:00:52.570
+and press the Enter key.
+
+14
+00:00:54.060 --> 00:00:56.265
+The first occurrence of the word "is",
+
+15
+00:00:56.265 --> 00:00:58.125
+is replaced with "are".
+
+16
+00:00:58.125 --> 00:01:00.119
+To view the file test1, type:
+
+17
+00:01:00.119 --> 00:01:05.775
+"cat test1", and press the Enter key.
+
+18
+00:01:05.775 --> 00:01:08.835
+The file test1 is displayed at the command prompt.
+
+19
+00:01:08.835 --> 00:01:11.430
+The contents of test1 are not altered,
+
+20
+00:01:11.430 --> 00:01:14.615
+because we don't save the results of the "sed" command.
+
+21
+00:01:14.615 --> 00:01:18.330
+To substitute string occurrence globally on a range of lines, type:
+
+22
+00:01:18.330 --> 00:01:35.730
+"sed 1,2s/is/are/g test1",
+
+23
+00:01:35.730 --> 00:01:39.640
+and press the Enter key.
+
+24
+00:01:39.640 --> 00:01:42.050
+All occurrences of the word "is"
+
+25
+00:01:42.050 --> 00:01:45.330
+between line one and two are replaced with "are".
+
+26
+00:01:45.330 --> 00:01:54.345
+To view the file test1, type: "cat test1", and press the Enter key.
+
+27
+00:01:54.345 --> 00:01:57.675
+The file test1 is displayed at the command prompt.
+
+28
+00:01:57.675 --> 00:02:00.740
+The contents of test1 are not altered,
+
+29
+00:02:00.740 --> 00:02:04.715
+because we don't save the results of the "sed" command.
+
+30
+00:02:05.315 --> 00:02:07.835
+To substitute string occurrence globally, type:
+
+31
+00:02:07.835 --> 00:02:21.925
+"sed s/is/are/g test1",
+
+32
+00:02:21.925 --> 00:02:24.130
+and press the Enter key.
+
+33
+00:02:24.130 --> 00:02:25.990
+All occurrences of the word "is"
+
+34
+00:02:25.990 --> 00:02:27.605
+in the file test1,
+
+35
+00:02:27.605 --> 00:02:29.555
+are replaced with "are".
+
+36
+00:02:29.555 --> 00:02:31.429
+To view the file test1, type:
+
+37
+00:02:31.429 --> 00:02:37.320
+"cat test1", and press the Enter key.
+
+38
+00:02:37.320 --> 00:02:40.660
+The file test1 is displayed at the command prompt.
+
+39
+00:02:40.660 --> 00:02:43.550
+The contents of test1 are not altered,
+
+40
+00:02:43.550 --> 00:02:47.670
+because we don't save the results of the "sed" command.
