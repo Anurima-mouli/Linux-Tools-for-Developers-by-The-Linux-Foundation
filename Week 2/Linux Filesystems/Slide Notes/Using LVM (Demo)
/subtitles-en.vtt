@@ -1,0 +1,241 @@
+WEBVTT
+
+1
+00:00:00.640 --> 00:00:05.960
+Let's get some practice examining our LVM setup,
+
+2
+00:00:05.960 --> 00:00:10.400
+and doing things like creating a new logical volume, and
+
+3
+00:00:10.400 --> 00:00:12.485
+putting a filesystem on it, etc.
+
+4
+00:00:13.020 --> 00:00:18.080
+So first, let's see what physical volumes are in use in our system.
+
+5
+00:00:18.080 --> 00:00:19.040
+And we can do that with:
+
+6
+00:00:19.040 --> 00:00:26.036
+"sudo pvdisplay | grep sd".
+
+7
+00:00:28.036 --> 00:00:32.011
+And you'll see, these are the different hard disk partitions
+
+8
+00:00:32.011 --> 00:00:38.460
+which are being used as physical volumes, and being used in the volume groups.
+
+9
+00:00:38.460 --> 00:00:41.720
+So, we see that we have both "sdb" and "sda".
+
+10
+00:00:41.720 --> 00:00:46.680
+On this system, "sda" is an old-fashioned rotational hard disk.
+
+11
+00:00:46.680 --> 00:00:49.990
+"sdb", as in "SSD", which is much faster, so
+
+12
+00:00:49.990 --> 00:00:55.170
+we try to put high-performance sensitive data on "sdb".
+
+13
+00:00:55.170 --> 00:00:59.340
+If I just type "sudo pvdisplay", just looking at "sd",
+
+14
+00:00:59.340 --> 00:01:03.660
+I get information about each volume on the system.
+
+15
+00:01:03.660 --> 00:01:06.860
+So, you'll see exactly how big each one is.
+
+16
+00:01:06.860 --> 00:01:12.110
+For instance, "sda2" is 500 gigabytes in size.
+
+17
+00:01:12.110 --> 00:01:17.132
+And the extents, or the units in which the physical volume
+
+18
+00:01:17.132 --> 00:01:23.010
+is trunked up are 4 megabytes, which is what's called a "PE".
+
+19
+00:01:23.010 --> 00:01:28.600
+If I want to see what volumes are on the system, I can do "sudo vgdisplay",
+
+20
+00:01:28.600 --> 00:01:33.752
+and once again, just to get a quick idea, I'll say "Name".
+
+21
+00:01:33.752 --> 00:01:39.140
+And you'll see, there are volume groups "VG" and "VG2".
+
+22
+00:01:39.140 --> 00:01:46.890
+And then, I can get more information if I just do "sudo vgdisplay".
+
+23
+00:01:48.320 --> 00:01:52.089
+And so, you see "VG2", for instance,
+
+24
+00:01:52.089 --> 00:02:01.270
+currently has 426 gigabytes free, out of a total of 1.05 terabytes on that disk.
+
+25
+00:02:03.749 --> 00:02:07.013
+If I want to see what logical volumes I have on my system,
+
+26
+00:02:07.013 --> 00:02:14.799
+I could do "sudo lvdisplay", and I can grep that with "Path".
+
+27
+00:02:15.810 --> 00:02:19.580
+And those are the different logical volumes that are on the system.
+
+28
+00:02:21.180 --> 00:02:26.686
+If I just try "sudo lvdisplay",
+
+29
+00:02:27.386 --> 00:02:32.560
+I get details about each logical volume that's on the system.
+
+30
+00:02:34.640 --> 00:02:38.780
+So I notice, I left from a previous attempt,
+
+31
+00:02:38.780 --> 00:02:42.930
+"newLV" which is I want to create in here, so let me get rid of that first.
+
+32
+00:02:42.930 --> 00:02:51.267
+So I do "sudo lvremove /dev/VG2/newLV".
+
+33
+00:02:52.267 --> 00:02:54.257
+And it's asking me whether I really want to do that,
+
+34
+00:02:54.257 --> 00:02:55.750
+and I'll say "yes".
+
+35
+00:02:56.860 --> 00:02:58.840
+And it's removed.
+
+36
+00:02:58.840 --> 00:03:01.436
+So, let's go through the process though of recreating it.
+
+37
+00:03:01.436 --> 00:03:06.082
+So, I'll do "sudo lvcreate -L 4G",
+
+38
+00:03:06.082 --> 00:03:09.750
+I want it to be 4 gigabytes in size.
+
+39
+00:03:09.750 --> 00:03:12.625
+I want the name to be "newLV".
+
+40
+00:03:12.770 --> 00:03:16.921
+And I'm going to put it in "VG2".
+
+41
+00:03:16.921 --> 00:03:19.984
+So that's created, but it's not really usable yet,
+
+42
+00:03:19.984 --> 00:03:22.500
+unless I put a filesystem on it.
+
+43
+00:03:22.500 --> 00:03:26.528
+So, I'll do "sudo mkfs", and
+
+44
+00:03:26.528 --> 00:03:29.460
+let's just make it an "ext4" filesystem,
+
+45
+00:03:29.460 --> 00:03:35.853
+"/dev/VG2/newLV".
+
+46
+00:03:35.853 --> 00:03:38.612
+And it's writing our new filesystem on there.
+
+47
+00:03:38.612 --> 00:03:41.959
+And then I can mount it and use it, etc.
+
+48
+00:03:41.959 --> 00:03:43.930
+So, let me just mount it,
+
+49
+00:03:43.930 --> 00:03:50.687
+"sudo mount /dev/VG2/newLV",
+
+50
+00:03:50.687 --> 00:03:55.791
+and I'll put that on "/mnt".
+
+51
+00:03:59.136 --> 00:04:01.350
+And I can verify it's really there.
+
+52
+00:04:02.030 --> 00:04:04.880
+And you'll see at the bottom here it's 3.9 gigabyte and
+
+53
+00:04:04.880 --> 00:04:08.750
+only 16 megabytes are actually used at the moment.
+
+54
+00:04:10.030 --> 00:04:20.852
+And then finally, let me remove it, "sudo lvremove /dev/VG2/newLV".
+
+55
+00:04:23.052 --> 00:04:24.940
+I didn't unmount it first, so
+
+56
+00:04:24.940 --> 00:04:28.360
+it won't let me remove it, so the system is being smart.
+
+57
+00:04:28.360 --> 00:04:35.230
+So, I'll do "sudo umount /mnt", and then I'll try to remove it again.
+
+58
+00:04:36.770 --> 00:04:38.144
+It says, do you really want to do it?
+
+59
+00:04:38.144 --> 00:04:39.820
+And I say "yes".
+
+60
+00:04:39.820 --> 00:04:45.800
+So that's basic commands for manipulating logical volumes on the LVM system.

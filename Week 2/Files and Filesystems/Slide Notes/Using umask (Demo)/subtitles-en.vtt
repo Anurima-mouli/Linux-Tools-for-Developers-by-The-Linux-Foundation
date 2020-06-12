@@ -1,0 +1,153 @@
+WEBVTT
+
+1
+00:00:00.710 --> 00:00:06.270
+Let's get some experience with understanding what "umask" does.
+
+2
+00:00:07.070 --> 00:00:12.050
+So, to see what the default "umask" is on your account,
+
+3
+00:00:12.050 --> 00:00:16.845
+just type "umask", and we see it's "0002".
+
+4
+00:00:17.245 --> 00:00:21.000
+Now, if we didn't have a "mask" set when we created a file,
+
+5
+00:00:21.000 --> 00:00:25.065
+it would be created with "666" permission. So, that is 
+
+6
+00:00:25.065 --> 00:00:28.470
+read-write permission
+
+7
+00:00:28.470 --> 00:00:31.895
+for user, group, and other, or world.
+
+8
+00:00:31.895 --> 00:00:34.110
+So, let's make a file and see what it looks like.
+
+9
+00:00:34.110 --> 00:00:37.620
+So, let me remove it in case it's there.
+
+10
+00:00:37.620 --> 00:00:39.175
+We're going to do this a few times.
+
+11
+00:00:39.175 --> 00:00:47.950
+"rm -f afile ; touch afile ; ls -l afile".
+
+12
+00:00:47.950 --> 00:00:49.120
+So, you see the permissions are: 
+
+13
+00:00:49.120 --> 00:00:51.775
+"-rw-rw-r--".
+
+14
+00:00:51.775 --> 00:00:57.645
+So, the two there, they knocked out the write permission on other,
+
+15
+00:00:57.645 --> 00:00:59.990
+because it's the last field there.
+
+16
+00:00:59.990 --> 00:01:02.150
+Likewise, if I did "touch",
+
+17
+00:01:02.150 --> 00:01:03.620
+let's change the "umask",
+
+18
+00:01:03.620 --> 00:01:08.065
+let's say "umask 0022",
+
+19
+00:01:08.065 --> 00:01:12.895
+it should remove write permission from group now.
+
+20
+00:01:12.895 --> 00:01:15.675
+So, let's create the file and look at it again.
+
+21
+00:01:15.675 --> 00:01:17.695
+You see, that is exactly what it did.
+
+22
+00:01:17.695 --> 00:01:21.215
+It's "-rw-r--r--".
+
+23
+00:01:21.215 --> 00:01:21.995
+Now, you can also do this
+
+24
+00:01:21.995 --> 00:01:24.130
+in symbolic forms.
+
+25
+00:01:24.130 --> 00:01:28.655
+So, I could do, for instance, "umask -S",
+
+26
+00:01:28.655 --> 00:01:30.370
+and you see, it's telling me,
+
+27
+00:01:30.370 --> 00:01:35.885
+"u=rwx", "g=rx", and "o=rx".
+
+28
+00:01:35.885 --> 00:01:39.010
+We are not getting any execute permissions on the files,
+
+29
+00:01:39.010 --> 00:01:45.365
+because the default "mask" that files are created with, is "666", not "777".
+
+30
+00:01:45.365 --> 00:01:50.290
+And I can also change the "umask" by specifying it
+
+31
+00:01:50.290 --> 00:01:52.875
+in that more complicated format like,
+
+32
+00:01:52.875 --> 00:01:54.700
+that we use for change mods.
+
+33
+00:01:54.700 --> 00:02:01.670
+So, I could do "umask", and I could say, "u=r",
+
+34
+00:02:01.670 --> 00:02:10.940
+"g=w", "o=rw", let's say.
+
+35
+00:02:10.940 --> 00:02:14.790
+And then I look at the "mask" again.
+
+36
+00:02:15.090 --> 00:02:19.200
+And the new files created exactly that: user read-only,
+
+37
+00:02:19.200 --> 00:02:23.940
+group write-only, and owner read-write.
+
+38
+00:02:23.940 --> 00:02:28.670
+So, that's a little bit of explanation of how you can play with "umask".
